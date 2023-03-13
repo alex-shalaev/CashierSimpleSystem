@@ -1,5 +1,8 @@
 package helper;
 
+/**
+ * Helper contains literal/numbers constants for reusable
+ */
 public class StringValueHelper {
     public static final String ICON_TEST_ANSI = "💡";
     public static final double DELTA = 0.01;

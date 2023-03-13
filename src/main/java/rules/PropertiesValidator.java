@@ -4,6 +4,9 @@ import java.util.Map;
 
 import static helper.StringValueHelper.*;
 
+/**
+ * Class contains methods for validation data from the products.yml & rules.yml
+ */
 public class PropertiesValidator {
 
     /**

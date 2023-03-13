@@ -1,5 +1,8 @@
 package helper;
 
+/**
+ * Enum for usage product coded
+ */
 public enum ProductEnum {
     GREEN_TEA_CODE("GR1"),
     STRAWBERRIES_CODE("SR1"),

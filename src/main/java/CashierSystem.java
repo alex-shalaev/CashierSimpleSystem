@@ -126,6 +126,11 @@ public class CashierSystem {
         return totalPrice;
     }
 
+    /**
+     * Load and validate products data from the products.yml
+     *
+     * @throws FileNotFoundException file is not found exception
+     */
     private void loadProducts() throws FileNotFoundException {
         Yaml yaml = new Yaml();
         File file = new File(PRODUCTS_PATH); //TODO: don't forget to change loading path from .property file
@@ -135,7 +140,13 @@ public class CashierSystem {
         propertiesValidator.productDataValidator(data, products);
     }
 
-    private void loadDiscountRules() throws FileNotFoundException {
+
+    /**
+     * Load and validate rules data from the products.yml
+     *
+     * @throws FileNotFoundException file is not found exception
+     */
+    public void loadDiscountRules() throws FileNotFoundException {
         Yaml yaml = new Yaml();
         File file = new File(RULES_PATH); //TODO: don't forget to change loading path from .property file
         FileInputStream inputStream = new FileInputStream(file);
