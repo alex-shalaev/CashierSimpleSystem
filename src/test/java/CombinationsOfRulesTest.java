@@ -19,7 +19,7 @@ public class CombinationsOfRulesTest {
     private CashierSystem cashierInstance;
 
     @BeforeEach
-    public void setUp() throws FileNotFoundException {
+    public void setUp() {
         cashierInstance = new CashierSystem();
     }
 

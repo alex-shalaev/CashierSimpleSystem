@@ -19,7 +19,7 @@ public class CashierSystemTest {
     private CashierSystem cashier;
 
     @BeforeEach
-    public void setUp() throws FileNotFoundException {
+    public void setUp() {
         cashier = new CashierSystem();
     }
 
@@ -115,7 +115,7 @@ public class CashierSystemTest {
         assertTrue(out.toString().contains(INVITATION_TO_ENTER_PRODUCT_CODE));
         assertTrue(out.toString().contains(SEPARATOR));
         assertTrue(out.toString().contains(CLI_FOOTER));
-        assertTrue(out.toString().contains("Enter product code or type 'done' to finish: Invalid product code: 1"));
+        assertTrue(out.toString().contains("Enter product code or type 'done' to finish: Invalid product code: XXX"));
         assertTrue(out.toString().contains("Total discount: £0.00"));
         assertTrue(out.toString().contains("Final price: £0.00"));
     }
