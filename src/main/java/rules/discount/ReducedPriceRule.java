@@ -21,6 +21,12 @@ public class ReducedPriceRule implements DiscountRule {
         return StringValueHelper.REDUCED_RULE_TYPE;
     }
 
+    /**
+     * Method apply discount: Buy > N products, pay X price per product
+     * @param productQuantity product quantity
+     * @param products products map
+     * @return discount value
+     */
     public double calculateDiscount(Map<String, Integer> productQuantity,
                                     Map<String, Product> products) {
         double discount = 0.0;

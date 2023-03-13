@@ -6,6 +6,12 @@ import static helper.StringValueHelper.*;
 
 public class PropertiesValidator {
 
+    /**
+     * Common method to validate product name & product price into product.yml file
+     *
+     * @param data     yaml content
+     * @param products products map
+     */
     public void productDataValidator(Map<String, Map<String, Object>> data,
                                      Map<String, Product> products) {
         for (Map.Entry<String, Map<String, Object>> product : data.entrySet()) {
@@ -15,6 +21,16 @@ public class PropertiesValidator {
         }
     }
 
+    /**
+     * Method for product price validation:
+     * Handle: double parsing
+     * Handle: zero or less product price
+     *
+     * @param product     current product object
+     * @param productCode product code
+     * @param productName product name
+     * @param products    products map
+     */
     private void productPriceValidator(Map.Entry<String, Map<String, Object>> product,
                                        String productCode,
                                        String productName,
@@ -36,6 +52,13 @@ public class PropertiesValidator {
         }
     }
 
+    /**
+     * Method for product name validation:
+     * Handle: product name is null or empty
+     *
+     * @param product current product object
+     * @return product name from products.yml
+     */
     private String productNameValidator(Map.Entry<String, Map<String, Object>> product) {
         String productName = (String) product.getValue().get(PRODUCT_NAME);
         if (!productName.isEmpty()) {
@@ -48,6 +71,15 @@ public class PropertiesValidator {
         }
     }
 
+    /**
+     * Method for rule quantity validation:
+     * Handle: integer parsing
+     * Handle: quantity is zero or less
+     *
+     * @param rule                current rule
+     * @param quantityForDiscount constant with name of field
+     * @return expected quantity for discount from rules.yml
+     */
     public int ruleDataQuantityValidator(Map.Entry<String, Map<String, Object>> rule,
                                          String quantityForDiscount) {
         int expectedQuantityForDiscount;
@@ -66,6 +98,13 @@ public class PropertiesValidator {
         }
     }
 
+    /**
+     * Method for rule reduced original price validation:
+     * Handle: double parsing
+     * Handle: zero or less validation
+     * @param rule current rule
+     * @return reduced price from rules.yml
+     */
     public double ruleDataReducedPriceValidator(Map.Entry<String, Map<String, Object>> rule) {
         double reducedPrice;
         try {
@@ -83,6 +122,13 @@ public class PropertiesValidator {
         }
     }
 
+    /**
+     * Method for rule fraction validation:
+     * Handle: double parsing
+     * Handle: zero or less validation
+     * @param rule current rule
+     * @return fraction(percentage) from rules.yml
+     */
     public double ruleDataFractionValidation(Map.Entry<String, Map<String, Object>> rule) {
         double fraction;
         try {

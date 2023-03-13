@@ -20,6 +20,12 @@ public class FreeRule implements DiscountRule {
         return StringValueHelper.FREE_RULE_TYPE;
     }
 
+    /**
+     * Method apply discount: Buy N get N free
+     * @param productQuantity product quantity
+     * @param products products map
+     * @return discount value
+     */
     public double calculateDiscount(Map<String, Integer> productQuantity,
                                     Map<String, Product> products) {
         double discount = 0.0;

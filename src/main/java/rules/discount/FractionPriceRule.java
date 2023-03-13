@@ -22,6 +22,12 @@ public class FractionPriceRule implements DiscountRule {
         return StringValueHelper.FRACTION_RULE_TYPE;
     }
 
+    /**
+     * Method apply discount: Buy > N products, pay X% of the original price
+     * @param productQuantity product quantity
+     * @param products products map
+     * @return discount value
+     */
     public double calculateDiscount(Map<String, Integer> productQuantity,
                                     Map<String, Product> products) {
         double discount = 0.0;
