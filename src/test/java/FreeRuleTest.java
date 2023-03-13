@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import static helper.StringValueHelper.DELTA;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FreeRuleTest {
@@ -20,21 +21,21 @@ class FreeRuleTest {
                 "2, 2, 1, 2.50",
                 "3, 1, 1, 7.50",
                 "4, 4, 1, 2.50",
-                "5, 2, 2, 0.00",
-                "3, 2, 2, 2.50",
-                "4, 2, 2, 5.00"
+                "5, 1, 2, 25.00",
+                "4, 2, 2, 10.0",
+                "3, 2, 2, 5.00"
         })
-        void calculateDiscount(int quantity, int numToBuy, int numFree, BigDecimal expectedDiscount) {
+        void calculateDiscountTest(int quantity, int numToBuy, int numFree, BigDecimal expectedDiscount) {
             Map<String, Integer> productQuantity = new HashMap<>();
             productQuantity.put(ProductEnum.GREEN_TEA_CODE.getValue(), quantity);
-            Product product = new Product(ProductEnum.GREEN_TEA_CODE.getValue(), "Green Tea", new Double("2.50"));
+            Product product = new Product(ProductEnum.GREEN_TEA_CODE.getValue(), "Green Tea", 2.50);
             Map<String, Product> products = new HashMap<>();
             products.put(ProductEnum.GREEN_TEA_CODE.getValue(), product);
             FreeRule rule = new FreeRule(numToBuy, numFree);
 
             double actualDiscount = rule.calculateDiscount(productQuantity, products);
 
-            assertEquals(expectedDiscount.doubleValue(), actualDiscount, 0.001);
+            assertEquals(expectedDiscount.doubleValue(), actualDiscount, DELTA);
         }
 }
 

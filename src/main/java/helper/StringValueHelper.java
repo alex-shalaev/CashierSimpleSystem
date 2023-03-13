@@ -34,7 +34,5 @@ public class StringValueHelper {
     public static final String TOTAL_DISCOUNT_CAPTION = "Total discount";
     public static final String CLI_HEADER = "************** CASHIER SIMPLE SYSTEM **************";
     public static final String SEPARATOR = "-------------------------------------------";
-    public static final String TOTAL_BILL = "************** TOTAL BILL *************************";
-
-
+    public static final String CLI_FOOTER = "************** TOTAL BILL *************************";
 }

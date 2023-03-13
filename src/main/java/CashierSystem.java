@@ -55,7 +55,7 @@ public class CashierSystem {
         System.out.println(SEPARATOR);
 
         double totalPrice = cashier.calculateTotalPrice(shoppingCartItem);
-        System.out.println(TOTAL_BILL);
+        System.out.println(CLI_FOOTER);
         System.out.println("Final price: £" + String.format("%.2f", totalPrice));
     }
 
