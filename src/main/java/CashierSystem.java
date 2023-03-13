@@ -43,10 +43,10 @@ public class CashierSystem {
                     System.out.print(INVITATION_TO_ENTER_QUANTITY);
                     int quantity;
                     try {
-                        quantity = Integer.parseInt(scanner.nextLine());
+                        quantity = Integer.parseUnsignedInt(scanner.nextLine());
                         shoppingCartItem.put(input, quantity);
                     } catch (Exception e) {
-                        System.out.println(CANNOT_CONVERT_QUANTITY);
+                        System.err.println(CANNOT_CONVERT_QUANTITY);
                         throw new IllegalArgumentException(CANNOT_CONVERT_QUANTITY);
                     }
                     System.out.printf("Product code '%s' with '%s' quantity added into the basket%n", input, quantity);
