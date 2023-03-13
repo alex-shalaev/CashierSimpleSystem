@@ -1,7 +1,7 @@
 package helper;
 
 public class StringValueHelper {
-
+    public static final String ICON_TEST_ANSI = "💡";
     public static final double DELTA = 0.01;
     public static final String EMPTY_STRING = "";
     public static final String DONE = "done";

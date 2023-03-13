@@ -1,5 +1,7 @@
 import helper.ProductEnum;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -22,6 +24,11 @@ public class CashierSystemTest {
     }
 
     @Test
+    @DisplayName(ICON_TEST_ANSI  + "Unit Test: Calculation of total price")
+    @Description("Unit Test: Calculation of total price")
+    @Severity(SeverityLevel.MINOR)
+    @Owner("Alex Sh.")
+    @Issue("TEST-#")
     public void calculateTotalPriceTest() {
         Map<String, Integer> cart = new HashMap<>();
         cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 1);
@@ -32,6 +39,11 @@ public class CashierSystemTest {
     }
 
     @Test
+    @DisplayName(ICON_TEST_ANSI  + "Unit Test: Calculation of total discount")
+    @Description("Unit Test: Calculation of total discount")
+    @Severity(SeverityLevel.MINOR)
+    @Owner("Alex Sh.")
+    @Issue("TEST-#")
     public void calculateTotalPriceWithDiscountsTest() {
         Map<String, Integer> cart = new HashMap<>();
         cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 3);
@@ -42,6 +54,11 @@ public class CashierSystemTest {
     }
 
     @Test
+    @DisplayName(ICON_TEST_ANSI  + "Unit Test: Validate invalid product code")
+    @Description("Unit Test: Validate invalid product code")
+    @Severity(SeverityLevel.MINOR)
+    @Owner("Alex Sh.")
+    @Issue("TEST-#")
     public void calculateTotalPriceInvalidProductCodeTest() {
         Map<String, Integer> cart = new HashMap<>();
         cart.put(ProductEnum.INVALID_CODE.getValue(), 1);
@@ -49,6 +66,11 @@ public class CashierSystemTest {
     }
 
     @Test
+    @DisplayName(ICON_TEST_ANSI  + "Unit Test: Validate negative quantity value")
+    @Description("Unit Test: Validate negative quantity value")
+    @Severity(SeverityLevel.MINOR)
+    @Owner("Alex Sh.")
+    @Issue("TEST-#")
     public void calculateTotalPriceNegativeQuantityTest() {
         Map<String, Integer> cart = new HashMap<>();
         cart.put(ProductEnum.COFFEE_CODE.getValue(), -1);
@@ -56,6 +78,11 @@ public class CashierSystemTest {
     }
 
     @Test
+    @DisplayName(ICON_TEST_ANSI  + "Unit Test: Validate a positive scenario I/O")
+    @Description("Unit Test: Unit Test: Validate a positive scenario I/O")
+    @Severity(SeverityLevel.MINOR)
+    @Owner("Alex Sh.")
+    @Issue("TEST-#")
     public void mainPositiveExecutionInputOutputTest() throws FileNotFoundException {
         ByteArrayInputStream in = new ByteArrayInputStream("GR1\n2\ndone\n".getBytes());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -73,6 +100,11 @@ public class CashierSystemTest {
     }
 
     @Test
+    @DisplayName(ICON_TEST_ANSI  + "Unit Test: Validate a negative scenario I/O: invalid product code")
+    @Description("Unit Test: Unit Test: Validate a negative scenario I/O")
+    @Severity(SeverityLevel.MINOR)
+    @Owner("Alex Sh.")
+    @Issue("TEST-#")
     public void mainInvalidProductCodeExecutionInputOutputTest() throws FileNotFoundException {
         ByteArrayInputStream in = new ByteArrayInputStream("1\ndone\n".getBytes());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -89,6 +121,11 @@ public class CashierSystemTest {
     }
 
     @Test
+    @DisplayName(ICON_TEST_ANSI  + "Unit Test: Validate a negative scenario I/O: invalid quantity parsing")
+    @Description("Unit Test: Unit Test: Validate a negative scenario I/O")
+    @Severity(SeverityLevel.MINOR)
+    @Owner("Alex Sh.")
+    @Issue("TEST-#")
     public void mainInvalidParseQuantityExecutionInputOutputTest() throws FileNotFoundException {
         ByteArrayInputStream in = new ByteArrayInputStream("GR1\n-2\ndone\n".getBytes());
         ByteArrayOutputStream out = new ByteArrayOutputStream();

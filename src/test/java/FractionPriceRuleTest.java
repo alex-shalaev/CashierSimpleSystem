@@ -1,4 +1,5 @@
 import static helper.StringValueHelper.DELTA;
+import static helper.StringValueHelper.ICON_TEST_ANSI;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
@@ -6,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -30,7 +32,11 @@ public class FractionPriceRuleTest {
 
     @ParameterizedTest(name = "{index} => numToBuy={0}, fraction={1}, quantity={2}, expectedDiscount={3}")
     @MethodSource("testData")
-    @DisplayName("Unit tests: for Fraction Price Rule")
+    @DisplayName(ICON_TEST_ANSI + "Unit Test: calculation fraction discount")
+    @Description("Unit Test: calculation fraction discount")
+    @Severity(SeverityLevel.MINOR)
+    @Owner("Alex Sh.")
+    @Issue("TEST-#")
     void calculateFractionDiscountShouldReturnExpectedDiscountTest(int numToBuy, double fraction, int quantity, double expectedDiscount) {
         FractionPriceRule rule = new FractionPriceRule(numToBuy, fraction);
         Map<String, Integer> productQuantity = new HashMap<>();
