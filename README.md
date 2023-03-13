@@ -86,6 +86,7 @@ Whole tests contains under
 ```bash
 src/test
 ```
+<img src="src/main/resources/misk/tests.png" width="500" height="400" align="center">
 
 ## Author
 
