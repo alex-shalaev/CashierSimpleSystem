@@ -2,40 +2,21 @@ import helper.ProductEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static helper.StringValueHelper.DELTA;
+
 public class TestExample {
     private CashierSystem cashier;
-
-    public static final double DELTA = 0.01;
 
     @BeforeEach
     public void setUp() throws FileNotFoundException {
         cashier = new CashierSystem();
-    }
-
-    @Test
-    public void testCalculateTotalPriceWithNoDiscounts() {
-        Map<String, Integer> cart = new HashMap<>();
-        cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 1);
-        cart.put(ProductEnum.STRAWBERRIES_CODE.getValue(), 1);
-        cart.put(ProductEnum.COFFEE_CODE.getValue(), 1);
-
-        double totalPrice = cashier.calculateTotalPrice(cart);
-        Assertions.assertEquals(19.34, totalPrice, DELTA);
-    }
-
-    @Test
-    public void testCalculateTotalPrice() {
-        Map<String, Integer> cart = new HashMap<>();
-        cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 2);
-        cart.put(ProductEnum.STRAWBERRIES_CODE.getValue(), 3);
-        cart.put(ProductEnum.COFFEE_CODE.getValue(), 3);
-
-        double totalPrice = cashier.calculateTotalPrice(cart);
-        Assertions.assertEquals(33.455, totalPrice, DELTA);
     }
 
     @Test
@@ -119,36 +100,17 @@ public class TestExample {
         Assertions.assertEquals(33.69, totalPrice, DELTA);
     }
 
-    @Test
-    public void testCalculateTotalPriceWithMixedRules() {
+    @ParameterizedTest
+    @CsvSource({"1,1,1,19.34", "2,1,1,19.34", "1,3,1,27.84", "1,2,3,29.95",
+    "2,3,2,39.07", "1,3,3,33.455", "2,1,3,24.955"})
+    public void testCalculateTotalPriceWithNoDiscounts(int greenTea, int strawberries,
+                                                       int coffee, double expectedTotalPrice) {
         Map<String, Integer> cart = new HashMap<>();
-        cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 2);
-        cart.put(ProductEnum.STRAWBERRIES_CODE.getValue(), 2);
-        cart.put(ProductEnum.COFFEE_CODE.getValue(), 3);
+        cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), greenTea);
+        cart.put(ProductEnum.STRAWBERRIES_CODE.getValue(), strawberries);
+        cart.put(ProductEnum.COFFEE_CODE.getValue(), coffee);
 
         double totalPrice = cashier.calculateTotalPrice(cart);
-        Assertions.assertEquals(29.95, totalPrice, DELTA);
-    }
-
-    @Test
-    public void testCalculateTotalPriceWithMixedRules2() {
-        Map<String, Integer> cart = new HashMap<>();
-        cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 3);
-        cart.put(ProductEnum.STRAWBERRIES_CODE.getValue(), 2);
-        cart.put(ProductEnum.COFFEE_CODE.getValue(), 3);
-
-        double totalPrice = cashier.calculateTotalPrice(cart);
-        Assertions.assertEquals(33.06, totalPrice, DELTA);
-    }
-
-    @Test
-    public void testCalculateTotalPriceWithMixedRules3() {
-        Map<String, Integer> cart = new HashMap<>();
-        cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 2);
-        cart.put(ProductEnum.STRAWBERRIES_CODE.getValue(), 3);
-        cart.put(ProductEnum.COFFEE_CODE.getValue(), 3);
-
-        double totalPrice = cashier.calculateTotalPrice(cart);
-        Assertions.assertEquals(33.45, totalPrice, DELTA);
+        Assertions.assertEquals(expectedTotalPrice, totalPrice, DELTA);
     }
 }

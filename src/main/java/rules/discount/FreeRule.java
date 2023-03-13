@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import rules.DiscountRule;
 import rules.Product;
-
-import java.math.BigDecimal;
 import java.util.Map;
 
 @Getter
