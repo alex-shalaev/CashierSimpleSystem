@@ -56,7 +56,7 @@ public class CashierSystemTest {
     }
 
     @Test
-    public void mainExecutionInputOutputTest() throws FileNotFoundException {
+    public void mainPositiveExecutionInputOutputTest() throws FileNotFoundException {
         ByteArrayInputStream in = new ByteArrayInputStream("GR1\n2\ndone\n".getBytes());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setIn(in);
@@ -70,6 +70,33 @@ public class CashierSystemTest {
         assertTrue(out.toString().contains("Was applied the following discount: FreeRule"));
         assertTrue(out.toString().contains("Total discount: £3.11"));
         assertTrue(out.toString().contains("Final price: £3.11"));
+    }
+
+    @Test
+    public void mainInvalidProductCodeExecutionInputOutputTest() throws FileNotFoundException {
+        ByteArrayInputStream in = new ByteArrayInputStream("1\ndone\n".getBytes());
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setIn(in);
+        System.setOut(new PrintStream(out));
+        CashierSystem.main(new String[0]);
+        assertTrue(out.toString().contains(CLI_HEADER));
+        assertTrue(out.toString().contains(INVITATION_TO_ENTER_PRODUCT_CODE));
+        assertTrue(out.toString().contains(SEPARATOR));
+        assertTrue(out.toString().contains(CLI_FOOTER));
+        assertTrue(out.toString().contains("Enter product code or type 'done' to finish: Invalid product code: 1"));
+        assertTrue(out.toString().contains("Total discount: £0.00"));
+        assertTrue(out.toString().contains("Final price: £0.00"));
+    }
+
+    @Test
+    public void mainInvalidParseQuantityExecutionInputOutputTest() throws FileNotFoundException {
+        ByteArrayInputStream in = new ByteArrayInputStream("GR1\n-2\ndone\n".getBytes());
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setIn(in);
+        System.setOut(new PrintStream(out));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> CashierSystem.main(new String[0]));
     }
 }
 

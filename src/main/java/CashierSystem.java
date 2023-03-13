@@ -46,6 +46,7 @@ public class CashierSystem {
                         quantity = Integer.parseInt(scanner.nextLine());
                         shoppingCartItem.put(input, quantity);
                     } catch (Exception e) {
+                        System.out.println(CANNOT_CONVERT_QUANTITY);
                         throw new IllegalArgumentException(CANNOT_CONVERT_QUANTITY);
                     }
                     System.out.printf("Product code '%s' with '%s' quantity added into the basket%n", input, quantity);
@@ -111,6 +112,7 @@ public class CashierSystem {
                     totalPrice -= fractionDiscount;
                     break;
                 default:
+                    System.out.println(INVALID_RULE_TYPE);
                     throw new IllegalArgumentException(INVALID_RULE_TYPE + rule.getType());
             }
         }
@@ -158,6 +160,7 @@ public class CashierSystem {
                     discountRules.put(type, new FractionPriceRule(numToBuyForFraction, percentage));
                     break;
                 default:
+                    System.out.println("Invalid discount rule type");
                     throw new IllegalArgumentException(String.format("Invalid discount rule type: %s, " +
                             "please provide a correct rule type", type));
             }

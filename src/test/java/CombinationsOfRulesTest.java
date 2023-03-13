@@ -12,12 +12,12 @@ import static helper.StringValueHelper.DELTA;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TestExample {
-    private CashierSystem cashier;
+public class CombinationsOfRulesTest {
+    private CashierSystem cashierInstance;
 
     @BeforeEach
     public void setUp() throws FileNotFoundException {
-        cashier = new CashierSystem();
+        cashierInstance = new CashierSystem();
     }
 
     @Test
@@ -26,7 +26,7 @@ public class TestExample {
         cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), -2);
 
         assertThrows(IllegalArgumentException.class,
-                () -> cashier.calculateTotalPrice(cart));
+                () -> cashierInstance.calculateTotalPrice(cart));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class TestExample {
         cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 0);
 
         assertThrows(IllegalArgumentException.class,
-                () -> cashier.calculateTotalPrice(cart));
+                () -> cashierInstance.calculateTotalPrice(cart));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TestExample {
         cart.put(ProductEnum.INVALID_CODE.getValue(), 1);
 
         assertThrows(IllegalArgumentException.class,
-                () -> cashier.calculateTotalPrice(cart));
+                () -> cashierInstance.calculateTotalPrice(cart));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class TestExample {
         Map<String, Integer> cart = new HashMap<>();
         cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 3);
 
-        double totalPrice = cashier.calculateTotalPrice(cart);
+        double totalPrice = cashierInstance.calculateTotalPrice(cart);
         assertEquals(6.22, totalPrice, DELTA);
     }
 
@@ -61,7 +61,7 @@ public class TestExample {
         Map<String, Integer> cart = new HashMap<>();
         cart.put(ProductEnum.GREEN_TEA_CODE.getValue(), 1);
 
-        double totalPrice = cashier.calculateTotalPrice(cart);
+        double totalPrice = cashierInstance.calculateTotalPrice(cart);
         assertEquals(3.11, totalPrice, DELTA);
     }
 
@@ -70,7 +70,7 @@ public class TestExample {
         Map<String, Integer> cart = new HashMap<>();
         cart.put(ProductEnum.STRAWBERRIES_CODE.getValue(), 3);
 
-        double totalPrice = cashier.calculateTotalPrice(cart);
+        double totalPrice = cashierInstance.calculateTotalPrice(cart);
         assertEquals(13.5, totalPrice, DELTA);
     }
 
@@ -79,7 +79,7 @@ public class TestExample {
         Map<String, Integer> cart = new HashMap<>();
         cart.put(ProductEnum.COFFEE_CODE.getValue(), 6);
 
-        double totalPrice = cashier.calculateTotalPrice(cart);
+        double totalPrice = cashierInstance.calculateTotalPrice(cart);
         assertEquals(33.69, totalPrice, DELTA);
     }
 
@@ -98,7 +98,7 @@ public class TestExample {
         cart.put(ProductEnum.STRAWBERRIES_CODE.getValue(), strawberries);
         cart.put(ProductEnum.COFFEE_CODE.getValue(), coffee);
 
-        double totalPrice = cashier.calculateTotalPrice(cart);
+        double totalPrice = cashierInstance.calculateTotalPrice(cart);
         assertEquals(expectedTotalPrice, totalPrice, DELTA);
     }
 }
