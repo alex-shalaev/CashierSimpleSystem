@@ -12,6 +12,10 @@ public class StringValueHelper {
     public static final String REDUCED_RULE_TYPE = "ReducedPriceRule";
     public static final String FRACTION_RULE_TYPE = "FractionPriceRule";
 
+    public static final String GREEN_TEA = "Green Tea";
+    public static final String STRAWBERRIES = "Strawberries";
+    public static final String COFFEE = "Coffee";
+
     public static final String QUANTITY_FOR_DISCOUNT = "numToBuy";
     public static final String FREE_QUANTITY = "numFree";
     public static final String NEW_PRICE = "newPrice";
@@ -25,8 +29,10 @@ public class StringValueHelper {
     public static final String INVALID_PRODUCT_CODE = "Invalid product code: ";
     public static final String INVALID_PRICE = "Invalid product price: ";
     public static final String INVALID_PRICE_PARSING = "Invalid product price parsing: ";
+    public static final String INVALID_RULE_PRICE_PARSING = "Invalid rule price parsing: ";
     public static final String INVALID_RULE_TYPE = "Invalid discount rule type: ";
-    public static final String CANNOT_CONVERT_PRODUCT_CODE = "Product count cannot be negative or zero";
+    public static final String INVALID_FRACTION_VALUE = "Invalid fraction value: ";
+    public static final String CANNOT_CONVERT_PRODUCT_CODE = "Product quantity cannot be negative or zero";
     public static final String CANNOT_CONVERT_QUANTITY = "Cannot convert quantity to integer type, " +
             "please use a correct type.";
 

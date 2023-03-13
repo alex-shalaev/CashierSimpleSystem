@@ -10,8 +10,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import static helper.StringValueHelper.DELTA;
-import static helper.StringValueHelper.ICON_TEST_ANSI;
+import static helper.StringValueHelper.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FreeRuleTest {
@@ -33,7 +32,7 @@ class FreeRuleTest {
     void calculateFreeRuleDiscountTest(int quantity, int numToBuy, int numFree, BigDecimal expectedDiscount) {
         Map<String, Integer> productQuantity = new HashMap<>();
         productQuantity.put(ProductEnum.GREEN_TEA_CODE.getValue(), quantity);
-        Product product = new Product(ProductEnum.GREEN_TEA_CODE.getValue(), "Green Tea", 2.50);
+        Product product = new Product(ProductEnum.GREEN_TEA_CODE.getValue(), GREEN_TEA, 2.50);
         Map<String, Product> products = new HashMap<>();
         products.put(ProductEnum.GREEN_TEA_CODE.getValue(), product);
         FreeRule rule = new FreeRule(numToBuy, numFree);

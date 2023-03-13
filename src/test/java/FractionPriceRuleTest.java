@@ -1,5 +1,4 @@
-import static helper.StringValueHelper.DELTA;
-import static helper.StringValueHelper.ICON_TEST_ANSI;
+import static helper.StringValueHelper.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
@@ -29,7 +28,6 @@ public class FractionPriceRuleTest {
                 Arguments.of(3, 33.33, 4, 6.66)
         );
     }
-
     @ParameterizedTest(name = "{index} => numToBuy={0}, fraction={1}, quantity={2}, expectedDiscount={3}")
     @MethodSource("testData")
     @DisplayName(ICON_TEST_ANSI + "Unit Test: calculation fraction discount")
@@ -41,7 +39,7 @@ public class FractionPriceRuleTest {
         FractionPriceRule rule = new FractionPriceRule(numToBuy, fraction);
         Map<String, Integer> productQuantity = new HashMap<>();
         productQuantity.put(ProductEnum.COFFEE_CODE.getValue(), quantity);
-        Product product = new Product(ProductEnum.COFFEE_CODE.getValue(), "Coffee", 5.0);
+        Product product = new Product(ProductEnum.COFFEE_CODE.getValue(), COFFEE, 5.0);
         Map<String, Product> products = Collections.singletonMap(ProductEnum.COFFEE_CODE.getValue(), product);
 
         double actualDiscount = rule.calculateDiscount(productQuantity, products);

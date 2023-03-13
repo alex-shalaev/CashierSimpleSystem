@@ -9,8 +9,7 @@ import rules.discount.ReducedPriceRule;
 import java.util.HashMap;
 import java.util.Map;
 
-import static helper.StringValueHelper.DELTA;
-import static helper.StringValueHelper.ICON_TEST_ANSI;
+import static helper.StringValueHelper.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReducedPriceRuleTest {
@@ -35,7 +34,7 @@ public class ReducedPriceRuleTest {
         productQuantity.put(ProductEnum.STRAWBERRIES_CODE.getValue(), quantity);
         Map<String, Product> products = new HashMap<>();
         products.put(ProductEnum.STRAWBERRIES_CODE.getValue(),
-                new Product(ProductEnum.STRAWBERRIES_CODE.getValue(), "Strawberries", 4.5));
+                new Product(ProductEnum.STRAWBERRIES_CODE.getValue(), STRAWBERRIES, 4.5));
         double discount = rule.calculateDiscount(productQuantity, products);
         assertEquals(expectedDiscount, discount, DELTA);
     }

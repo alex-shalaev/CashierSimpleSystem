@@ -19,6 +19,7 @@ public class CashierSystem {
 
     private Map<String, Product> products;
     private Map<String, DiscountRule> discountRules;
+    private final PropertiesValidator propertiesValidator = new PropertiesValidator();
 
     public CashierSystem() {
         try {
@@ -131,8 +132,7 @@ public class CashierSystem {
         FileInputStream inputStream = new FileInputStream(file);
         Map<String, Map<String, Object>> data = yaml.load(inputStream);
         products = new HashMap<>();
-        PropertiesValidator propertiesValidator = new PropertiesValidator();
-        propertiesValidator.productDataValidation(data, products);
+        propertiesValidator.productDataValidator(data, products);
     }
 
     private void loadDiscountRules() throws FileNotFoundException {
@@ -145,18 +145,18 @@ public class CashierSystem {
             String type = rule.getKey();
             switch (type) {
                 case FREE_RULE_TYPE:
-                    int numToBuy = (int) rule.getValue().get(QUANTITY_FOR_DISCOUNT);
-                    int numFreeForFreeRule = (int) rule.getValue().get(FREE_QUANTITY);
+                    int numToBuy = propertiesValidator.ruleDataQuantityValidator(rule, QUANTITY_FOR_DISCOUNT);
+                    int numFreeForFreeRule = propertiesValidator.ruleDataQuantityValidator(rule, FREE_QUANTITY);
                     discountRules.put(type, new FreeRule(numToBuy, numFreeForFreeRule));
                     break;
                 case REDUCED_RULE_TYPE:
-                    int numToBuyForReducedPrice = (int) rule.getValue().get(QUANTITY_FOR_DISCOUNT);
-                    double newPrice = (double) rule.getValue().get(NEW_PRICE);
-                    discountRules.put(type, new ReducedPriceRule(numToBuyForReducedPrice, newPrice));
+                    int numToBuyForReducedPrice = propertiesValidator.ruleDataQuantityValidator(rule, QUANTITY_FOR_DISCOUNT);
+                    double reducedPrice = propertiesValidator.ruleDataReducedPriceValidator(rule);
+                    discountRules.put(type, new ReducedPriceRule(numToBuyForReducedPrice, reducedPrice));
                     break;
                 case FRACTION_RULE_TYPE:
-                    int numToBuyForFraction = (int) rule.getValue().get(QUANTITY_FOR_DISCOUNT);
-                    double percentage = (double) rule.getValue().get(RULE_FRACTION);
+                    int numToBuyForFraction = propertiesValidator.ruleDataQuantityValidator(rule, QUANTITY_FOR_DISCOUNT);
+                    double percentage = propertiesValidator.ruleDataFractionValidation(rule);
                     discountRules.put(type, new FractionPriceRule(numToBuyForFraction, percentage));
                     break;
                 default:
