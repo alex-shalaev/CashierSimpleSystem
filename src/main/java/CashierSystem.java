@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import helper.StringValueHelper;
 import org.yaml.snakeyaml.Yaml;
 import rules.DiscountRule;
 import rules.Product;
@@ -32,11 +31,11 @@ public class CashierSystem {
 
         System.out.println(CLI_HEADER);
         String input = EMPTY_STRING;
-        while (!input.equalsIgnoreCase(StringValueHelper.DONE)) {
+        while (!input.equalsIgnoreCase(DONE)) {
 
             System.out.print(INVITATION_TO_ENTER_PRODUCT_CODE);
             input = scanner.nextLine().trim();
-            if (!input.equalsIgnoreCase(StringValueHelper.DONE)) {
+            if (!input.equalsIgnoreCase(DONE)) {
                 if (!cashier.products.containsKey(input)) {
                     System.out.println(INVALID_PRODUCT_CODE + input);
                 } else {
@@ -84,7 +83,7 @@ public class CashierSystem {
 
         for (DiscountRule rule : discountRules.values()) {
             switch (rule.getType()) {
-                case StringValueHelper.FREE_RULE_TYPE:
+                case FREE_RULE_TYPE:
                     FreeRule freeRule = (FreeRule) rule;
                     double freeDiscount = freeRule.calculateDiscount(productCounts, products);
                     if (freeDiscount > 0) {
@@ -93,7 +92,7 @@ public class CashierSystem {
                     }
                     totalPrice -= freeDiscount;
                     break;
-                case StringValueHelper.REDUCED_RULE_TYPE:
+                case REDUCED_RULE_TYPE:
                     ReducedPriceRule reducedPriceRule = (ReducedPriceRule) rule;
                     double reducedPriceDiscount = reducedPriceRule.calculateDiscount(productCounts, products);
                     if (reducedPriceDiscount > 0) {
@@ -102,7 +101,7 @@ public class CashierSystem {
                     }
                     totalPrice -= reducedPriceDiscount;
                     break;
-                case StringValueHelper.FRACTION_RULE_TYPE:
+                case FRACTION_RULE_TYPE:
                     FractionPriceRule fractionPriceRule = (FractionPriceRule) rule;
                     double fractionDiscount = fractionPriceRule.calculateDiscount(productCounts, products);
                     if (fractionDiscount > 0) {
@@ -127,11 +126,44 @@ public class CashierSystem {
         FileInputStream inputStream = new FileInputStream(file);
         Map<String, Map<String, Object>> data = yaml.load(inputStream);
         products = new HashMap<>();
+        productDataValidation(data);
+    }
+
+    private void productDataValidation(Map<String, Map<String, Object>> data) {
         for (Map.Entry<String, Map<String, Object>> product : data.entrySet()) {
-            String code = product.getKey();
-            String name = (String) product.getValue().get(StringValueHelper.PRODUCT_NAME);
-            double price = (double) product.getValue().get(StringValueHelper.PRODUCT_PRICE_NAME);
-            products.put(code, new Product(code, name, price));
+            String productCode = product.getKey();
+            String productName = productNameValidation(product);
+            productPriceValidation(product, productCode, productName);
+        }
+    }
+
+    private void productPriceValidation(Map.Entry<String, Map<String, Object>> product, String productCode, String productName) {
+        try {
+            double productPrice = (double) product.getValue().get(PRODUCT_PRICE_NAME);
+            if (productPrice <= 0) { //TODO: not sure regarding price=0.0, maybe this is a valid case, something like a free price
+                System.out.printf("Found that price value = '%s' into product.yml across to %s product code is setup " +
+                        "to incorrect value%n%n", productPrice, product.getKey());
+                System.err.printf("Please update price = '%s' across to '%s' product code on correct " +
+                        "value in product.yml file and restart a application%n", productPrice, product.getKey());
+                throw new IllegalArgumentException(INVALID_PRICE);
+            }
+            products.put(productCode, new Product(productCode, productName, productPrice));
+        } catch (Exception e) {
+            System.out.println("Found that price value into product.yml cannot been parsed to double");
+            System.err.println("Please update price in product.yml and restart a application");
+            throw new IllegalArgumentException(INVALID_PRICE_PARSING);
+        }
+    }
+
+    private String productNameValidation(Map.Entry<String, Map<String, Object>> product) {
+        String productName = (String) product.getValue().get(PRODUCT_NAME);
+        if (!productName.isEmpty()) {
+            return (String) product.getValue().get(PRODUCT_NAME);
+        } else {
+            System.out.println("Found that product name value is empty");
+            System.err.printf("Please fill price with not empty value across to '%s' product code" +
+                    " in product.yml file and restart a application%n", product.getKey());
+            throw new IllegalArgumentException(INVALID_PRICE);
         }
     }
 
@@ -144,19 +176,19 @@ public class CashierSystem {
         for (Map.Entry<String, Map<String, Object>> rule : data.entrySet()) {
             String type = rule.getKey();
             switch (type) {
-                case StringValueHelper.FREE_RULE_TYPE:
-                    int numToBuy = (int) rule.getValue().get(StringValueHelper.QUANTITY_FOR_DISCOUNT);
-                    int numFreeForFreeRule = (int) rule.getValue().get(StringValueHelper.FREE_QUANTITY);
+                case FREE_RULE_TYPE:
+                    int numToBuy = (int) rule.getValue().get(QUANTITY_FOR_DISCOUNT);
+                    int numFreeForFreeRule = (int) rule.getValue().get(FREE_QUANTITY);
                     discountRules.put(type, new FreeRule(numToBuy, numFreeForFreeRule));
                     break;
-                case StringValueHelper.REDUCED_RULE_TYPE:
-                    int numToBuyForReducedPrice = (int) rule.getValue().get(StringValueHelper.QUANTITY_FOR_DISCOUNT);
-                    double newPrice = (double) rule.getValue().get(StringValueHelper.NEW_PRICE);
+                case REDUCED_RULE_TYPE:
+                    int numToBuyForReducedPrice = (int) rule.getValue().get(QUANTITY_FOR_DISCOUNT);
+                    double newPrice = (double) rule.getValue().get(NEW_PRICE);
                     discountRules.put(type, new ReducedPriceRule(numToBuyForReducedPrice, newPrice));
                     break;
-                case StringValueHelper.FRACTION_RULE_TYPE:
-                    int numToBuyForFraction = (int) rule.getValue().get(StringValueHelper.QUANTITY_FOR_DISCOUNT);
-                    double percentage = (double) rule.getValue().get(StringValueHelper.RULE_FRACTION);
+                case FRACTION_RULE_TYPE:
+                    int numToBuyForFraction = (int) rule.getValue().get(QUANTITY_FOR_DISCOUNT);
+                    double percentage = (double) rule.getValue().get(RULE_FRACTION);
                     discountRules.put(type, new FractionPriceRule(numToBuyForFraction, percentage));
                     break;
                 default:

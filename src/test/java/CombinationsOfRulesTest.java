@@ -128,7 +128,12 @@ public class CombinationsOfRulesTest {
             "1,2,3,29.95",
             "2,3,2,39.07",
             "1,3,3,33.455",
-            "2,1,3,24.955"})
+            "2,1,3,24.955",
+            "999,1,1,1571.23",
+            "1,999,1,4509.83",
+            "1,1,999,5617.49",
+            "999,999,999,11659.88",
+    })
     @DisplayName(ICON_TEST_ANSI + "Parameterized mixed of applicable rules")
     @Description("Parameterized mixed of applicable rules")
     @Severity(SeverityLevel.MINOR)

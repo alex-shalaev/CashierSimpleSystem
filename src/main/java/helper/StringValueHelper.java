@@ -21,8 +21,10 @@ public class StringValueHelper {
     public static final String RULES_PATH = "priv/assets/rules.yml";
 
     public static final String INVITATION_TO_ENTER_PRODUCT_CODE = "Enter product code or type 'done' to finish: ";
-    public static final String INVITATION_TO_ENTER_QUANTITY = "Enter quantity of product(s): ";
+    public static final String INVITATION_TO_ENTER_QUANTITY = "Enter quantity of product: ";
     public static final String INVALID_PRODUCT_CODE = "Invalid product code: ";
+    public static final String INVALID_PRICE = "Invalid product price: ";
+    public static final String INVALID_PRICE_PARSING = "Invalid product price parsing: ";
     public static final String INVALID_RULE_TYPE = "Invalid discount rule type: ";
     public static final String CANNOT_CONVERT_PRODUCT_CODE = "Product count cannot be negative or zero";
     public static final String CANNOT_CONVERT_QUANTITY = "Cannot convert quantity to integer type, " +
