@@ -1,0 +1,12 @@
+FreeRule:
+  productCode: GR1
+  numToBuy: 2
+  numFree: 1
+ReducedPriceRule:
+  productCode: SR1
+  numToBuy: 3
+  newPrice: 4.50
+FractionPriceRule:
+  productCode: CF1
+  numToBuy: 3
+  fraction: 50.0
