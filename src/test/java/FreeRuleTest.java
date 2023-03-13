@@ -14,6 +14,7 @@ import static helper.StringValueHelper.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FreeRuleTest {
+
     @ParameterizedTest(name = "Buy {0} products, get {1} products free")
     @CsvSource({
             "1, 2, 1, 0.00",

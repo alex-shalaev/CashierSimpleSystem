@@ -30,7 +30,7 @@ public class CashierSystem {
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         CashierSystem cashier = new CashierSystem();
         Scanner scanner = new Scanner(System.in);
         Map<String, Integer> shoppingCartItem = new HashMap<>();
@@ -139,7 +139,6 @@ public class CashierSystem {
         products = new HashMap<>();
         propertiesValidator.productDataValidator(data, products);
     }
-
 
     /**
      * Load and validate rules data from the products.yml

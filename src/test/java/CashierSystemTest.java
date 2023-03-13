@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,7 +82,7 @@ public class CashierSystemTest {
     @Severity(SeverityLevel.MINOR)
     @Owner("Alex Sh.")
     @Issue("TEST-#")
-    public void mainPositiveExecutionInputOutputTest() throws FileNotFoundException {
+    public void mainPositiveExecutionInputOutputTest() {
         ByteArrayInputStream in = new ByteArrayInputStream("GR1\n2\ndone\n".getBytes());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setIn(in);
@@ -105,48 +104,48 @@ public class CashierSystemTest {
     @Severity(SeverityLevel.MINOR)
     @Owner("Alex Sh.")
     @Issue("TEST-#")
-    public void mainInvalidProductCodeExecutionInputOutputTest() throws FileNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream("XXX\ndone\n".getBytes());
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setIn(in);
-        System.setOut(new PrintStream(out));
+    public void mainInvalidProductCodeExecutionInputOutputTest() {
+        ByteArrayInputStream inputBytes = new ByteArrayInputStream("XXX\ndone\n".getBytes());
+        ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
+        System.setIn(inputBytes);
+        System.setOut(new PrintStream(outputBytes));
         CashierSystem.main(new String[0]);
-        assertTrue(out.toString().contains(CLI_HEADER));
-        assertTrue(out.toString().contains(INVITATION_TO_ENTER_PRODUCT_CODE));
-        assertTrue(out.toString().contains(SEPARATOR));
-        assertTrue(out.toString().contains(CLI_FOOTER));
-        assertTrue(out.toString().contains("Enter product code or type 'done' to finish: Invalid product code: XXX"));
-        assertTrue(out.toString().contains("Total discount: £0.00"));
-        assertTrue(out.toString().contains("Final price: £0.00"));
+        assertTrue(outputBytes.toString().contains(CLI_HEADER));
+        assertTrue(outputBytes.toString().contains(INVITATION_TO_ENTER_PRODUCT_CODE));
+        assertTrue(outputBytes.toString().contains(SEPARATOR));
+        assertTrue(outputBytes.toString().contains(CLI_FOOTER));
+        assertTrue(outputBytes.toString().contains("Enter product code or type 'done' to finish: Invalid product code: XXX"));
+        assertTrue(outputBytes.toString().contains("Total discount: £0.00"));
+        assertTrue(outputBytes.toString().contains("Final price: £0.00"));
     }
 
     @Test
-    @DisplayName(ICON_TEST_ANSI  + "Unit Test: Validate a negative scenario I/O: invalid quantity parsing")
+    @DisplayName(ICON_TEST_ANSI + "Unit Test: Validate a negative scenario I/O: invalid quantity parsing")
     @Description("Unit Test: Unit Test: Validate a negative scenario I/O")
     @Severity(SeverityLevel.MINOR)
     @Owner("Alex Sh.")
     @Issue("TEST-#")
     public void mainInvalidParseQuantityExecutionInputOutputTest() {
-        ByteArrayInputStream in = new ByteArrayInputStream("GR1\n-2\ndone\n".getBytes());
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setIn(in);
-        System.setOut(new PrintStream(out));
+        ByteArrayInputStream inputBytes = new ByteArrayInputStream("GR1\n-2\ndone\n".getBytes());
+        ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
+        System.setIn(inputBytes);
+        System.setOut(new PrintStream(outputBytes));
 
         assertThrows(IllegalArgumentException.class,
                 () -> CashierSystem.main(new String[0]));
     }
 
     @Test
-    @DisplayName(ICON_TEST_ANSI  + "Unit Test: Validate a negative scenario I/O: invalid float quantity parsing")
+    @DisplayName(ICON_TEST_ANSI + "Unit Test: Validate a negative scenario I/O: invalid float quantity parsing")
     @Description("Unit Test: Unit Test: Validate a negative scenario I/O")
     @Severity(SeverityLevel.MINOR)
     @Owner("Alex Sh.")
     @Issue("TEST-#")
     public void mainInvalidParseFloatQuantityExecutionInputOutputTest() {
-        ByteArrayInputStream in = new ByteArrayInputStream("GR1\n-1.5\ndone\n".getBytes());
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setIn(in);
-        System.setOut(new PrintStream(out));
+        ByteArrayInputStream inputBytes = new ByteArrayInputStream("GR1\n-1.5\ndone\n".getBytes());
+        ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
+        System.setIn(inputBytes);
+        System.setOut(new PrintStream(outputBytes));
 
         assertThrows(IllegalArgumentException.class,
                 () -> CashierSystem.main(new String[0]));
