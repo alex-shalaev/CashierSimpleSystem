@@ -1,7 +1,5 @@
 # Cashier System (Test Exam)
 
-<img src="src/main/resources/misk/logo.png" width="100" align="right">
-
 Simple cashier function that adds products to a cart and displays the total price.
 
 ## Agenda
