@@ -1,4 +1,4 @@
-# Cashier System (Test Exam)
+# Cashier System
 
 Simple cashier function that adds products to a cart and displays the total price.
 
