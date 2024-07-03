@@ -101,7 +101,7 @@ public class CashierSystem {
                     break;
                 case REDUCED_RULE_TYPE:
                     ReducedPriceRule reducedPriceRule = (ReducedPriceRule) rule;
-                    double reducedPriceDiscount = reducedPriceRule.calculateDiscount(productCounts, products);
+                    //double reducedPriceDiscount = reducedPriceRule.calculateDiscount(productCounts, products);
                     if (reducedPriceDiscount > 0) {
                         System.out.println(DISCOUNT_CAPTION + reducedPriceRule.getType());
                         totalDiscount += reducedPriceDiscount;
