@@ -18,6 +18,7 @@ import static helper.StringValueHelper.*;
 public class CashierSystem {
 
     private Map<String, Product> products;
+    private Map<String, Product> productsNew;
     private Map<String, DiscountRule> discountRules;
     private final PropertiesValidator propertiesValidator = new PropertiesValidator();
 
